@@ -13,12 +13,13 @@
 
 @interface TableViewController () {
     NSArray *midias;
+    UITextField *search;
+    iTunesManager *itunes;
 }
 
 @end
 
 @implementation TableViewController
-
 
 
 - (void)viewDidLoad {
@@ -27,11 +28,21 @@
     UINib *nib = [UINib nibWithNibName:@"TableViewCell" bundle:nil];
     [self.tableview registerNib:nib forCellReuseIdentifier:@"celulaPadrao"];
     
-    iTunesManager *itunes = [iTunesManager sharedInstance];
-    midias = [itunes buscarMidias:@"Apple"];
-    
 #warning Necessario para que a table view tenha um espaco em relacao ao topo, pois caso contrario o texto ficara atras da barra superior
-    self.tableview.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.tableview.bounds.size.width, 15.f)];
+    self.tableview.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.tableview.bounds.size.width, 75.f)];
+    
+    search = [[UITextField alloc] initWithFrame:CGRectMake(0, 25, self.tableview.frame.size.width -100, 35)];
+    [search setBackgroundColor:[UIColor colorWithRed:200/255.0 green:200/255.0 blue:200/255.0 alpha:1.0]];
+    [self.tableview.tableHeaderView addSubview:search];
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    button.frame = CGRectMake(265, 25, 50, 35);
+    [button setTitle:@"Buscar" forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(busca:) forControlEvents:UIControlEventTouchUpInside];
+    [self.tableview.tableHeaderView addSubview:button];
+    
+    itunes = [iTunesManager sharedInstance];
+    //midias = [itunes buscarMidias:@"Apple"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -39,6 +50,10 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)busca:(UIButton *)button {
+    midias = [itunes buscarMidias:search.text];
+    [self.tableview reloadData];
+}
 
 #pragma mark - Metodos do UITableViewDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -56,6 +71,9 @@
     
     [celula.nome setText:filme.nome];
     [celula.tipo setText:@"Filme"];
+    [celula.artista setText:filme.artista];
+    [celula.duracao setText:filme.duracao];
+    [celula.preco setText:filme.preco];
     
     return celula;
 }

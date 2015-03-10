@@ -54,16 +54,44 @@ static bool isFirstAccess = YES;
         [filme setNome:[item objectForKey:@"trackName"]];
         [filme setTrackId:[item objectForKey:@"trackId"]];
         [filme setArtista:[item objectForKey:@"artistName"]];
-        [filme setDuracao:[item objectForKey:@"trackTimeMillis"]];
+        [filme setDuracao:[self formatInterval:[NSString stringWithFormat:@"%@", [item objectForKey:@"trackTimeMillis"]]]];
         [filme setGenero:[item objectForKey:@"primaryGenreName"]];
         [filme setPais:[item objectForKey:@"country"]];
+        [filme setPreco:[NSString stringWithFormat:@"U$ %@", [item objectForKey:@"trackPrice"]]];
         [filmes addObject:filme];
     }
     
     return filmes;
 }
 
-
+- (NSString *) formatInterval: (NSString *) i{
+    NSTimeInterval interval;
+    if ([i doubleValue]) {
+        interval = [i doubleValue];
+    } else {
+        interval = 0.0;
+    }
+    unsigned long milliseconds = interval;
+    unsigned long seconds = milliseconds / 1000;
+    milliseconds %= 1000;
+    unsigned long minutes = seconds / 60;
+    seconds %= 60;
+    unsigned long hours = minutes / 60;
+    minutes %= 60;
+    
+    NSMutableString * result = [NSMutableString new];
+    
+    if(hours)
+        [result appendFormat: @"%d:", hours];
+    else
+        [result appendFormat: @"0:"];
+    
+    [result appendFormat: @"%2d:", minutes];
+    [result appendFormat: @"%2d", seconds];
+    //[result appendFormat: @"%2d",milliseconds];
+    
+    return result;
+}
 
 
 #pragma mark - Life Cycle
