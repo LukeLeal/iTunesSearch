@@ -8,6 +8,9 @@
 
 #import "iTunesManager.h"
 #import "Entidades/Filme.h"
+#import "Entidades/Musica.h"
+#import "Entidades/Podcast.h"
+#import "Entidades/EBook.h"
 
 @implementation iTunesManager
 
@@ -28,8 +31,8 @@ static bool isFirstAccess = YES;
     return SINGLETON;
 }
 
-
-- (NSArray *)buscarMidias:(NSString *)termo {
+//Filme
+- (NSArray *)buscarFilmes:(NSString *)termo{
     if (!termo) {
         termo = @"";
     }
@@ -64,6 +67,109 @@ static bool isFirstAccess = YES;
     return filmes;
 }
 
+//Musica
+- (NSArray *)buscarMusicas:(NSString *)termo {
+    if (!termo) {
+        termo = @"";
+    }
+    
+    NSString *url = [NSString stringWithFormat:@"https://itunes.apple.com/search?term=%@&media=music", termo];
+    NSData *jsonData = [NSData dataWithContentsOfURL: [NSURL URLWithString:url]];
+    
+    NSError *error;
+    NSDictionary *resultado = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                              options:NSJSONReadingMutableContainers
+                                                                error:&error];
+    if (error) {
+        NSLog(@"Não foi possível fazer a busca. ERRO: %@", error);
+        return nil;
+    }
+    
+    NSArray *resultados = [resultado objectForKey:@"results"];
+    NSMutableArray *musicas = [[NSMutableArray alloc] init];
+    
+    for (NSDictionary *item in resultados) {
+        Musica *musica = [[Musica alloc] init];
+        [musica setNome:[item objectForKey:@"trackName"]];
+        [musica setTrackId:[item objectForKey:@"trackId"]];
+        [musica setArtista:[item objectForKey:@"artistName"]];
+        [musica setDuracao:[self formatInterval:[NSString stringWithFormat:@"%@", [item objectForKey:@"trackTimeMillis"]]]];
+        [musica setPreco:[NSString stringWithFormat:@"U$ %@", [item objectForKey:@"trackPrice"]]];
+        [musicas addObject:musica];
+    }
+    
+    return musicas;
+}
+
+//Podcast
+- (NSArray *)buscarPodcasts:(NSString *)termo {
+    if (!termo) {
+        termo = @"";
+    }
+    
+    NSString *url = [NSString stringWithFormat:@"https://itunes.apple.com/search?term=%@&media=podcast", termo];
+    NSData *jsonData = [NSData dataWithContentsOfURL: [NSURL URLWithString:url]];
+    
+    NSError *error;
+    NSDictionary *resultado = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                              options:NSJSONReadingMutableContainers
+                                                                error:&error];
+    if (error) {
+        NSLog(@"Não foi possível fazer a busca. ERRO: %@", error);
+        return nil;
+    }
+    
+    NSArray *resultados = [resultado objectForKey:@"results"];
+    NSMutableArray *podcasts = [[NSMutableArray alloc] init];
+    
+    for (NSDictionary *item in resultados) {
+        Podcast *podcast = [[Podcast alloc] init];
+        [podcast setNome:[item objectForKey:@"trackName"]];
+        [podcast setTrackId:[item objectForKey:@"trackId"]];
+        [podcast setArtista:[item objectForKey:@"artistName"]];
+        [podcast setDuracao:[item objectForKey:@"primaryGenreName"]];
+        [podcast setPreco:[NSString stringWithFormat:@"U$ %@", [item objectForKey:@"trackPrice"]]];
+        [podcasts addObject:podcast];
+    }
+    
+    return podcasts;
+}
+
+//Ebook
+- (NSArray *)buscarEBooks:(NSString *)termo {
+    if (!termo) {
+        termo = @"";
+    }
+    
+    NSString *url = [NSString stringWithFormat:@"https://itunes.apple.com/search?term=%@&media=ebook", termo];
+    NSData *jsonData = [NSData dataWithContentsOfURL: [NSURL URLWithString:url]];
+    
+    NSError *error;
+    NSDictionary *resultado = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                              options:NSJSONReadingMutableContainers
+                                                                error:&error];
+    if (error) {
+        NSLog(@"Não foi possível fazer a busca. ERRO: %@", error);
+        return nil;
+    }
+    
+    NSArray *resultados = [resultado objectForKey:@"results"];
+    NSMutableArray *ebooks = [[NSMutableArray alloc] init];
+    
+    for (NSDictionary *item in resultados) {
+        EBook *ebook = [[EBook alloc] init];
+        [ebook setNome:[item objectForKey:@"trackName"]];
+        [ebook setTrackId:[item objectForKey:@"trackId"]];
+        [ebook setArtista:[item objectForKey:@"artistName"]];
+        [ebook setDuracao:[self formatInterval:[NSString stringWithFormat:@"%@", [item objectForKey:@"trackTimeMillis"]]]];
+        [ebook setPreco:[NSString stringWithFormat:@"U$ %@", [item objectForKey:@"trackPrice"]]];
+        [ebooks addObject:ebook];
+    }
+    
+    return ebooks;
+}
+
+//Método que converte double de milissegundos em uma NSString hh:mm:ss
 - (NSString *) formatInterval: (NSString *) i{
     NSTimeInterval interval;
     if ([i doubleValue]) {

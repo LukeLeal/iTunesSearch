@@ -10,6 +10,9 @@
 #import "TableViewCell.h"
 #import "iTunesManager.h"
 #import "Entidades/Filme.h"
+#import "Entidades/Musica.h"
+#import "Entidades/Podcast.h"
+#import "Entidades/EBook.h"
 
 @interface TableViewController () {
     NSArray *midias;
@@ -51,7 +54,12 @@
 }
 
 - (void)busca:(UIButton *)button {
-    midias = [itunes buscarMidias:search.text];
+    NSMutableArray *hue = [[NSMutableArray alloc] init];
+    [hue addObjectsFromArray:[itunes buscarPodcasts:search.text]];
+    [hue addObjectsFromArray:[itunes buscarMusicas:search.text]];
+    [hue addObjectsFromArray:[itunes buscarFilmes:search.text]];
+    [hue addObjectsFromArray:[itunes buscarEBooks:search.text]];
+    midias = hue;
     [self.tableview reloadData];
 }
 
@@ -67,13 +75,45 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TableViewCell *celula = [self.tableview dequeueReusableCellWithIdentifier:@"celulaPadrao"];
     
-    Filme *filme = [midias objectAtIndex:indexPath.row];
-    
-    [celula.nome setText:filme.nome];
-    [celula.tipo setText:@"Filme"];
-    [celula.artista setText:filme.artista];
-    [celula.duracao setText:filme.duracao];
-    [celula.preco setText:filme.preco];
+    if([[midias objectAtIndex:indexPath.row] isKindOfClass:[Filme class]]){
+        Filme *filme = [midias objectAtIndex:indexPath.row];
+        
+        [celula.nome setText:filme.nome];
+        [celula.tipo setText:@"Filme"];
+        [celula.artista setText:filme.artista];
+        [celula.duracao setText:filme.duracao];
+        [celula.preco setText:filme.preco];
+        
+    } else if([[midias objectAtIndex:indexPath.row] isKindOfClass:[Musica class]]){
+        Musica *musica = [midias objectAtIndex:indexPath.row];
+        
+        [celula.nome setText:musica.nome];
+        [celula.tipo setText:@"Música"];
+        [celula.artista setText:musica.artista];
+        [celula.duracao setText:musica.duracao];
+        [celula.preco setText:musica.preco];
+        
+    } else if([[midias objectAtIndex:indexPath.row] isKindOfClass:[Podcast class]]){
+        Podcast *podcast = [midias objectAtIndex:indexPath.row];
+        
+        [celula.nome setText:podcast.nome];
+        [celula.tipo setText:@"Podcast"];
+        [celula.artista setText:podcast.artista];
+//        [celula.duracao setText:podcast.duracao];
+//        [celula.preco setText:podcast.preco];
+        [celula.duracao setHidden:YES];
+        [celula.preco setHidden:YES];
+    } else if([[midias objectAtIndex:indexPath.row] isKindOfClass:[EBook class]]){
+        EBook *ebook = [midias objectAtIndex:indexPath.row];
+        
+        [celula.nome setText:ebook.nome];
+        [celula.tipo setText:@"EBook"];
+        [celula.artista setText:ebook.artista];
+//        [celula.duracao setText:ebook.duracao];
+//        [celula.preco setText:ebook.preco];
+        [celula.duracao setHidden:YES];
+        [celula.preco setHidden:YES];
+    }
     
     return celula;
 }
