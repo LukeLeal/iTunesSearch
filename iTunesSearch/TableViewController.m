@@ -15,7 +15,10 @@
 #import "Entidades/EBook.h"
 
 @interface TableViewController () {
-    NSArray *midias;
+    NSArray *filmes;
+    NSArray *musicas;
+    NSArray *podcasts;
+    NSArray *ebooks;
     UITextField *search;
     iTunesManager *itunes;
 }
@@ -54,29 +57,37 @@
 }
 
 - (void)busca:(UIButton *)button {
-    NSMutableArray *hue = [[NSMutableArray alloc] init];
-    [hue addObjectsFromArray:[itunes buscarPodcasts:search.text]];
-    [hue addObjectsFromArray:[itunes buscarMusicas:search.text]];
-    [hue addObjectsFromArray:[itunes buscarFilmes:search.text]];
-    [hue addObjectsFromArray:[itunes buscarEBooks:search.text]];
-    midias = hue;
+    filmes = [itunes buscarFilmes:search.text];
+    musicas = [itunes buscarMusicas:search.text];
+    podcasts = [itunes buscarPodcasts:search.text];
+    ebooks = [itunes buscarEBooks:search.text];
     [self.tableview reloadData];
 }
 
 #pragma mark - Metodos do UITableViewDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return 4;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [midias count];
+    if (section == 0) {
+        return [filmes count];
+    } else if (section == 1) {
+        return [musicas count];
+    } else if (section == 2) {
+        return [podcasts count];
+    } else if (section == 3) {
+        return [ebooks count];
+    }
+    return 0;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     TableViewCell *celula = [self.tableview dequeueReusableCellWithIdentifier:@"celulaPadrao"];
     
-    if([[midias objectAtIndex:indexPath.row] isKindOfClass:[Filme class]]){
-        Filme *filme = [midias objectAtIndex:indexPath.row];
+    if(indexPath.section == 0){
+        Filme *filme = [filmes objectAtIndex:indexPath.row];
         
         [celula.nome setText:filme.nome];
         [celula.tipo setText:@"Filme"];
@@ -84,8 +95,8 @@
         [celula.duracao setText:filme.duracao];
         [celula.preco setText:filme.preco];
         
-    } else if([[midias objectAtIndex:indexPath.row] isKindOfClass:[Musica class]]){
-        Musica *musica = [midias objectAtIndex:indexPath.row];
+    } else if(indexPath.section == 1){
+        Musica *musica = [musicas objectAtIndex:indexPath.row];
         
         [celula.nome setText:musica.nome];
         [celula.tipo setText:@"Música"];
@@ -93,8 +104,8 @@
         [celula.duracao setText:musica.duracao];
         [celula.preco setText:musica.preco];
         
-    } else if([[midias objectAtIndex:indexPath.row] isKindOfClass:[Podcast class]]){
-        Podcast *podcast = [midias objectAtIndex:indexPath.row];
+    } else if(indexPath.section == 2){
+        Podcast *podcast = [podcasts objectAtIndex:indexPath.row];
         
         [celula.nome setText:podcast.nome];
         [celula.tipo setText:@"Podcast"];
@@ -103,8 +114,9 @@
 //        [celula.preco setText:podcast.preco];
         [celula.duracao setHidden:YES];
         [celula.preco setHidden:YES];
-    } else if([[midias objectAtIndex:indexPath.row] isKindOfClass:[EBook class]]){
-        EBook *ebook = [midias objectAtIndex:indexPath.row];
+        
+    } else if(indexPath.section == 3){
+        EBook *ebook = [podcasts objectAtIndex:indexPath.row];
         
         [celula.nome setText:ebook.nome];
         [celula.tipo setText:@"EBook"];
@@ -114,12 +126,24 @@
         [celula.duracao setHidden:YES];
         [celula.preco setHidden:YES];
     }
-    
+
     return celula;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 70;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (section == 0)
+        return @"Filmes";
+    if (section == 1)
+        return @"Músicas";
+    if (section == 2)
+        return @"Podcasts";
+    if (section == 3)
+        return @"EBooks";
+    return @"undefined";
 }
 
 
