@@ -9,10 +9,12 @@
 #import "TableViewController.h"
 #import "TableViewCell.h"
 #import "iTunesManager.h"
+#import "Midia.h"
 #import "Entidades/Filme.h"
 #import "Entidades/Musica.h"
 #import "Entidades/Podcast.h"
 #import "Entidades/EBook.h"
+#import "DetailViewController.h"
 
 @interface TableViewController () {
     NSArray *filmes;
@@ -34,11 +36,13 @@
     UINib *nib = [UINib nibWithNibName:@"TableViewCell" bundle:nil];
     [self.tableview registerNib:nib forCellReuseIdentifier:@"celulaPadrao"];
     
+    
 #warning Necessario para que a table view tenha um espaco em relacao ao topo, pois caso contrario o texto ficara atras da barra superior
     self.tableview.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.tableview.bounds.size.width, 75.f)];
     
     search = [[UITextField alloc] initWithFrame:CGRectMake(0, 25, self.tableview.frame.size.width -100, 35)];
     [search setBackgroundColor:[UIColor colorWithRed:200/255.0 green:200/255.0 blue:200/255.0 alpha:1.0]];
+    [search becomeFirstResponder];
     [self.tableview.tableHeaderView addSubview:search];
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -46,7 +50,7 @@
     [button setTitle:@"Buscar" forState:UIControlStateNormal];
     [button addTarget:self action:@selector(busca:) forControlEvents:UIControlEventTouchUpInside];
     [self.tableview.tableHeaderView addSubview:button];
-    
+    //[search ]
     itunes = [iTunesManager sharedInstance];
     //midias = [itunes buscarMidias:@"Apple"];
 }
@@ -61,12 +65,21 @@
     musicas = [itunes buscarMusicas:search.text];
     podcasts = [itunes buscarPodcasts:search.text];
     ebooks = [itunes buscarEBooks:search.text];
+    [self resignFirstResponder];
+    
     [self.tableview reloadData];
 }
 
 #pragma mark - Metodos do UITableViewDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 4;
+}
+
+-(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    DetailViewController *details = [[DetailViewController alloc] init];
+    Midia *midia = filmes[indexPath.row];
+    details.midia = midia;
+    [self.navigationController pushViewController:details animated:YES];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -111,9 +124,9 @@
         [celula.tipo setText:@"Podcast"];
         [celula.artista setText:podcast.artista];
 //        [celula.duracao setText:podcast.duracao];
-//        [celula.preco setText:podcast.preco];
+        [celula.preco setText:podcast.preco];
         [celula.duracao setHidden:YES];
-        [celula.preco setHidden:YES];
+//        [celula.preco setHidden:YES];
         
     } else if(indexPath.section == 3){
         EBook *ebook = [podcasts objectAtIndex:indexPath.row];
@@ -122,9 +135,9 @@
         [celula.tipo setText:@"EBook"];
         [celula.artista setText:ebook.artista];
 //        [celula.duracao setText:ebook.duracao];
-//        [celula.preco setText:ebook.preco];
+        [celula.preco setText:ebook.preco];
         [celula.duracao setHidden:YES];
-        [celula.preco setHidden:YES];
+//        [celula.preco setHidden:YES];
     }
 
     return celula;

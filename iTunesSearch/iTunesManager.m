@@ -162,7 +162,7 @@ static bool isFirstAccess = YES;
         [ebook setTrackId:[item objectForKey:@"trackId"]];
         [ebook setArtista:[item objectForKey:@"artistName"]];
         [ebook setDuracao:[self formatInterval:[NSString stringWithFormat:@"%@", [item objectForKey:@"trackTimeMillis"]]]];
-        [ebook setPreco:[NSString stringWithFormat:@"U$ %@", [item objectForKey:@"trackPrice"]]];
+        [ebook setPreco:[NSString stringWithFormat:@"U$ %@", [item objectForKey:@"price"]]];
         [ebooks addObject:ebook];
     }
     
