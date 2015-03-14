@@ -77,7 +77,18 @@
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     DetailViewController *details = [[DetailViewController alloc] init];
-    Midia *midia = filmes[indexPath.row];
+    Midia *midia;
+    if(indexPath.section == 0){
+        midia = filmes[indexPath.row];
+    } else if(indexPath.section == 1){
+        midia = musicas[indexPath.row];
+        
+    } else if(indexPath.section == 2){
+        midia = podcasts[indexPath.row];
+        
+    } else if(indexPath.section == 3){
+        midia = ebooks[indexPath.row];
+    }
     details.midia = midia;
     [self.navigationController pushViewController:details animated:YES];
 }

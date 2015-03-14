@@ -7,13 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Midia.h"
 
-@interface Podcast : NSObject
 
-@property (nonatomic, strong) NSString *nome;
+@interface Podcast : Midia
+
 @property (nonatomic, strong) NSString *trackId;
-@property (nonatomic, strong) NSString *artista;
-@property (nonatomic, strong) NSString *duracao;
-@property (nonatomic, strong) NSString *preco;
+@property (nonatomic, strong) NSString *genero;
+@property (nonatomic, strong) NSString *colecao;
 
 @end

@@ -9,9 +9,13 @@
 #import "DetailViewController.h"
 
 @interface DetailViewController ()
+@property (weak, nonatomic) IBOutlet UIImageView *imagem;
 @property (weak, nonatomic) IBOutlet UILabel *nome;
 @property (weak, nonatomic) IBOutlet UILabel *artista;
 @property (weak, nonatomic) IBOutlet UILabel *preco;
+@property (weak, nonatomic) IBOutlet UILabel *customA;
+@property (weak, nonatomic) IBOutlet UILabel *customB;
+@property (weak, nonatomic) IBOutlet UILabel *tipo;
 
 @end
 
@@ -20,18 +24,33 @@
 - (void) viewWillAppear:(BOOL)animated{
     self.nome.text = [NSString stringWithFormat:@"Nome: %@", _midia.nome];
     self.artista.text = [NSString stringWithFormat:@"Artista: %@", _midia.artista];
-    self.preco.text = [NSString stringWithFormat:@"Preço %@", _midia.preco];
+    self.preco.text = [NSString stringWithFormat:@"Preço: %@", _midia.preco];
+    NSURL *url = [[NSURL alloc] initWithString:_midia.image];
+    _tipo.text = (NSStringFromClass([_midia class]));
+    
+    NSData *data = [[NSData alloc] initWithContentsOfURL:url];
+    
+    UIImage *tmpImage = [[UIImage alloc] initWithData:data];
+    
+    self.imagem.image = tmpImage;
     //[NSString stringWithFormat:@" %@",];
-    /*if([_midia isMemberOfClass:[Filme class]]){
+    if([_midia isMemberOfClass:[Filme class]]){
         Filme *filme = (Filme *) self.midia;
-        //self.nome.text = [NSString stringWithFormat:@"Nome: %@",filme.nome];
+        self.customA.text = [NSString stringWithFormat:@"Duração: %@",filme.duracao];
+        self.customB.text = [NSString stringWithFormat:@"Gênero: %@", filme.genero];
     } else if ([_midia isMemberOfClass:[Musica class]]){
         Musica *musica = (Musica *) self.midia;
+        self.customA.text = [NSString stringWithFormat:@"Duração: %@",musica.duracao];
+        self.customB.text = [NSString stringWithFormat:@"Coleção: %@",musica.colecao];
     } else if ([_midia isMemberOfClass:[Podcast class]]){
         Podcast *podcast = (Podcast *) self.midia;
+        self.customA.text = [NSString stringWithFormat:@"Gênero: %@",podcast.genero];
+        self.customB.text = [NSString stringWithFormat:@"Coleção: %@",podcast.colecao];
     } else if ([_midia isMemberOfClass:[EBook class]]){
         EBook *ebook = (EBook *) self.midia;
-    }*/
+        self.customA.text = [NSString stringWithFormat:@"Tamanho: %@",ebook.fileSize];
+        self.customB.text = [NSString stringWithFormat:@"Nota media: %@",ebook.media];
+    }
     
 }
 

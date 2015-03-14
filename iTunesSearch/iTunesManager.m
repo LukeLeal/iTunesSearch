@@ -61,6 +61,7 @@ static bool isFirstAccess = YES;
         [filme setGenero:[item objectForKey:@"primaryGenreName"]];
         [filme setPais:[item objectForKey:@"country"]];
         [filme setPreco:[NSString stringWithFormat:@"U$ %@", [item objectForKey:@"trackPrice"]]];
+        [filme setImage:[item objectForKey:@"artworkUrl100"]];
         [filmes addObject:filme];
     }
     
@@ -95,6 +96,8 @@ static bool isFirstAccess = YES;
         [musica setArtista:[item objectForKey:@"artistName"]];
         [musica setDuracao:[self formatInterval:[NSString stringWithFormat:@"%@", [item objectForKey:@"trackTimeMillis"]]]];
         [musica setPreco:[NSString stringWithFormat:@"U$ %@", [item objectForKey:@"trackPrice"]]];
+        [musica setImage:[item objectForKey:@"artworkUrl100"]];
+        [musica setColecao:[item objectForKey:@"collectionName"]];
         [musicas addObject:musica];
     }
     
@@ -127,8 +130,10 @@ static bool isFirstAccess = YES;
         [podcast setNome:[item objectForKey:@"trackName"]];
         [podcast setTrackId:[item objectForKey:@"trackId"]];
         [podcast setArtista:[item objectForKey:@"artistName"]];
-        [podcast setDuracao:[item objectForKey:@"primaryGenreName"]];
+        [podcast setGenero:[item objectForKey:@"primaryGenreName"]];
         [podcast setPreco:[NSString stringWithFormat:@"U$ %@", [item objectForKey:@"trackPrice"]]];
+        [podcast setImage:[item objectForKey:@"artworkUrl100"]];
+        [podcast setColecao:[item objectForKey:@"collectionName"]];
         [podcasts addObject:podcast];
     }
     
@@ -161,8 +166,10 @@ static bool isFirstAccess = YES;
         [ebook setNome:[item objectForKey:@"trackName"]];
         [ebook setTrackId:[item objectForKey:@"trackId"]];
         [ebook setArtista:[item objectForKey:@"artistName"]];
-        [ebook setDuracao:[self formatInterval:[NSString stringWithFormat:@"%@", [item objectForKey:@"trackTimeMillis"]]]];
         [ebook setPreco:[NSString stringWithFormat:@"U$ %@", [item objectForKey:@"price"]]];
+        [ebook setImage:[item objectForKey:@"artworkUrl100"]];
+        [ebook setFileSize:[NSString stringWithFormat:@"%@ bytes", [item objectForKey:@"fileSizeBytes"]]];
+        [ebook setMedia:[NSString stringWithFormat:@"%@", [item objectForKey:@"averageUserRating"]]];
         [ebooks addObject:ebook];
     }
     

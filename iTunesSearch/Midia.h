@@ -13,5 +13,6 @@
 @property (nonatomic, strong) NSString *nome;
 @property (nonatomic, strong) NSString *artista;
 @property (nonatomic, strong) NSString *preco;
+@property (nonatomic, strong) NSString *image;
 
 @end

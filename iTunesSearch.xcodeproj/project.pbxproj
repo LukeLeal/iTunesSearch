@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4E4D1FED1AB0CD760024AADB /* Musica.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4D1FEC1AB0CD760024AADB /* Musica.m */; };
+		4E0A0E731AB4986C00E2CB45 /* Musica.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A0E721AB4986C00E2CB45 /* Musica.m */; };
 		4E4D1FF01AB0D52B0024AADB /* Podcast.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4D1FEF1AB0D52B0024AADB /* Podcast.m */; };
 		4E4D1FF31AB0D5680024AADB /* EBook.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4D1FF21AB0D5680024AADB /* EBook.m */; };
 		4E58B0E91AB33DF8006D4291 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E58B0E71AB33DF8006D4291 /* DetailViewController.m */; };
@@ -36,8 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4E4D1FEB1AB0CD760024AADB /* Musica.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Musica.h; path = Entidades/Musica.h; sourceTree = "<group>"; };
-		4E4D1FEC1AB0CD760024AADB /* Musica.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Musica.m; path = Entidades/Musica.m; sourceTree = "<group>"; };
+		4E0A0E711AB4986C00E2CB45 /* Musica.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Musica.h; path = Entidades/Musica.h; sourceTree = "<group>"; };
+		4E0A0E721AB4986C00E2CB45 /* Musica.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Musica.m; path = Entidades/Musica.m; sourceTree = "<group>"; };
 		4E4D1FEE1AB0D52B0024AADB /* Podcast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Podcast.h; path = Entidades/Podcast.h; sourceTree = "<group>"; };
 		4E4D1FEF1AB0D52B0024AADB /* Podcast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Podcast.m; path = Entidades/Podcast.m; sourceTree = "<group>"; };
 		4E4D1FF11AB0D5680024AADB /* EBook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EBook.h; path = Entidades/EBook.h; sourceTree = "<group>"; };
@@ -166,14 +166,14 @@
 			children = (
 				92C21CE61AAE858E0052ABE6 /* Filme.h */,
 				92C21CE71AAE858E0052ABE6 /* Filme.m */,
-				4E4D1FEB1AB0CD760024AADB /* Musica.h */,
-				4E4D1FEC1AB0CD760024AADB /* Musica.m */,
 				4E4D1FEE1AB0D52B0024AADB /* Podcast.h */,
 				4E4D1FEF1AB0D52B0024AADB /* Podcast.m */,
 				4E4D1FF11AB0D5680024AADB /* EBook.h */,
 				4E4D1FF21AB0D5680024AADB /* EBook.m */,
 				4E58B0EB1AB350A4006D4291 /* Midia.h */,
 				4E58B0EC1AB350A4006D4291 /* Midia.m */,
+				4E0A0E711AB4986C00E2CB45 /* Musica.h */,
+				4E0A0E721AB4986C00E2CB45 /* Musica.m */,
 			);
 			name = Entidades;
 			sourceTree = "<group>";
@@ -280,8 +280,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				92C21CBC1AAE757A0052ABE6 /* TableViewController.m in Sources */,
-				4E4D1FED1AB0CD760024AADB /* Musica.m in Sources */,
 				4E4D1FF01AB0D52B0024AADB /* Podcast.m in Sources */,
+				4E0A0E731AB4986C00E2CB45 /* Musica.m in Sources */,
 				92C21CDB1AAE75B30052ABE6 /* iTunesManager.m in Sources */,
 				92C21CB91AAE757A0052ABE6 /* AppDelegate.m in Sources */,
 				4E58B0E91AB33DF8006D4291 /* DetailViewController.m in Sources */,
