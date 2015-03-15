@@ -47,12 +47,10 @@
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     button.frame = CGRectMake(265, 25, 50, 35);
-    [button setTitle:@"Buscar" forState:UIControlStateNormal];
+    [button setTitle:NSLocalizedString(@"Search", nil) forState:UIControlStateNormal];
     [button addTarget:self action:@selector(busca:) forControlEvents:UIControlEventTouchUpInside];
     [self.tableview.tableHeaderView addSubview:button];
-    //[search ]
     itunes = [iTunesManager sharedInstance];
-    //midias = [itunes buscarMidias:@"Apple"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -114,7 +112,7 @@
         Filme *filme = [filmes objectAtIndex:indexPath.row];
         
         [celula.nome setText:filme.nome];
-        [celula.tipo setText:@"Filme"];
+        [celula.tipo setText:NSLocalizedString(@"Movie", nil)];
         [celula.artista setText:filme.artista];
         [celula.duracao setText:filme.duracao];
         [celula.preco setText:filme.preco];
@@ -123,7 +121,7 @@
         Musica *musica = [musicas objectAtIndex:indexPath.row];
         
         [celula.nome setText:musica.nome];
-        [celula.tipo setText:@"Música"];
+        [celula.tipo setText:NSLocalizedString(@"Music", nil)];
         [celula.artista setText:musica.artista];
         [celula.duracao setText:musica.duracao];
         [celula.preco setText:musica.preco];
@@ -160,9 +158,9 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (section == 0)
-        return @"Filmes";
+        return NSLocalizedString(@"Movies", nil);
     if (section == 1)
-        return @"Músicas";
+        return NSLocalizedString(@"Musics", nil);
     if (section == 2)
         return @"Podcasts";
     if (section == 3)
