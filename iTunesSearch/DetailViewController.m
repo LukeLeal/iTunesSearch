@@ -25,12 +25,9 @@
     self.nome.text = [NSString stringWithFormat:@"Nome: %@", _midia.nome];
     self.artista.text = [NSString stringWithFormat:@"Artista: %@", _midia.artista];
     self.preco.text = [NSString stringWithFormat:@"Preço: %@", _midia.preco];
-    NSURL *url = [[NSURL alloc] initWithString:_midia.image];
     _tipo.text = (NSStringFromClass([_midia class]));
     
-    NSData *data = [[NSData alloc] initWithContentsOfURL:url];
-    
-    UIImage *tmpImage = [[UIImage alloc] initWithData:data];
+    UIImage *tmpImage = _midia.image;
     
     self.imagem.image = tmpImage;
     //[NSString stringWithFormat:@" %@",];

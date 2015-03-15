@@ -116,6 +116,7 @@
         [celula.artista setText:filme.artista];
         [celula.duracao setText:filme.duracao];
         [celula.preco setText:filme.preco];
+        [celula.imagem setImage:filme.image60];
         
     } else if(indexPath.section == 1){
         Musica *musica = [musicas objectAtIndex:indexPath.row];
@@ -125,6 +126,7 @@
         [celula.artista setText:musica.artista];
         [celula.duracao setText:musica.duracao];
         [celula.preco setText:musica.preco];
+        [celula.imagem setImage:musica.image60];
         
     } else if(indexPath.section == 2){
         Podcast *podcast = [podcasts objectAtIndex:indexPath.row];
@@ -135,7 +137,7 @@
 //        [celula.duracao setText:podcast.duracao];
         [celula.preco setText:podcast.preco];
         [celula.duracao setHidden:YES];
-//        [celula.preco setHidden:YES];
+        [celula.imagem setImage:podcast.image60];
         
     } else if(indexPath.section == 3){
         EBook *ebook = [podcasts objectAtIndex:indexPath.row];
@@ -143,10 +145,9 @@
         [celula.nome setText:ebook.nome];
         [celula.tipo setText:@"EBook"];
         [celula.artista setText:ebook.artista];
-//        [celula.duracao setText:ebook.duracao];
         [celula.preco setText:ebook.preco];
         [celula.duracao setHidden:YES];
-//        [celula.preco setHidden:YES];
+        [celula.imagem setImage:ebook.image60];
     }
 
     return celula;
